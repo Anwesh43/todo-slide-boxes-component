@@ -5,21 +5,29 @@ import {
 } from './hooks'
 import TodoBlock from './TodoBlock'
 
+const TextBox = ({disabled, onBlur}) => {
+    if (disabled) {
+        console.log("disabled", disabled)
+        return <input disabled type = "text" onBlur = {onBlur}/>
+    }
+    return <input type = "text" onBlur = {onBlur}/>
+} 
+
 const TodoSlideBoxApp = () => {
     const {w, h} = useDimension()
-    const {scale, i, todos, start} = useAnimatedScale(0.02, 20)
+    const {scale, i, todos, start, disabled, text} = useAnimatedScale(0.02, 20)
     return (
       <div>
-          <input type = "text" onBlur = {
+          <TextBox disabled = {disabled} onBlur = {
             (e) => {
                 if (e.target.value.trim() !== "") {
                     start(e.target.value.trim())
                 }
             }
           }/>
-          {todos.map((todo, i) => <TodoBlock w = {w} h = {h} scale = {1} i = {i} text = {todo}/>)}
+          {todos.map((todo, i) => <TodoBlock key = {`text_${i}`} w = {w} h = {h} scale = {1} i = {i} text = {todo}/>)}
           
-          {i < todos.length ? (<TodoBlock scale = {scale} w = {w} h = {h} i = {0}/>) : null}
+          {text ? (<TodoBlock text = {text} scale = {scale} w = {w} h = {h} i = {i}/>) : null}
       </div>
     )
 }

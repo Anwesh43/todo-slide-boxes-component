@@ -11,12 +11,14 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
     const [scale, setScale] = useState(0)
     const [animated, setAnimated] = useState(false)
     const [i, setI] = useState(0)
+    const [todos, setTodos] = useState([])
     return {
         i,
         scale, 
-        start() {
+        start(text) {
             if (!animated) {
                 setAnimated(true)
+                setTodos([...todos, todo])
                 let currScale = scale 
                 const interval = setInterval(() => {
                     currScale += scGap 

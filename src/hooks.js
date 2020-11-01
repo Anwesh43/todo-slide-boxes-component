@@ -15,7 +15,8 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
     return {
         i,
         scale, 
-        start(text) {
+        todos,
+        start(todo) {
             if (!animated) {
                 setAnimated(true)
                 setTodos([...todos, todo])
@@ -26,6 +27,7 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
                         setAnimated(false)
                         setScale(0)
                         clearInterval(interval)
+                        setI(i + 1)
                     }
                 })
             }
@@ -33,7 +35,7 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
     }
 }
 
-export const useDimension = (w, h) => {
+export const useDimension = () => {
     const [w, setW] = useState(window.innerWidth)
     const [h, setH] = useState(window.innerHeight)
     useEffect(() => {

@@ -26,3 +26,18 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
         }
     }
 }
+
+export const useDimension = (w, h) => {
+    const [w, setW] = useState(window.innerWidth)
+    const [h, setH] = useState(window.innerHeight)
+    useEffect(() => {
+        window.onresize = () => {
+            setW(window.innerWidth)
+            setH(window.innerHeight)
+        }
+    })
+    return {
+        w, 
+        h
+    }
+}
